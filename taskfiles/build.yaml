@@ -1,0 +1,35 @@
+version: "3"
+tasks:
+  buildAll:
+    desc: build babylon, babylon-contract, btc-staker, covenant-emulator, finality-gadget, finality-provider, vigilante, optimism
+    silent: true
+    cmds:
+      - |
+        printf "${C_GREEN}Building all babylon network component....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building babylon start....${C_RESET}\n"
+        make -C babylon build
+        printf "${C_GREEN}Building babylon end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building btc-staker start....${C_RESET}\n"
+        make -C btc-staker
+        printf "${C_GREEN}Building btc-staker end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building covenant-emulator start....${C_RESET}\n"
+        make -C covenant-emulator
+        printf "${C_GREEN}Building covenant-emulator end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building finality-gadget start....${C_RESET}\n"
+        make -C finality-gadget
+        printf "${C_GREEN}Building finality-gadget end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building finality-provider start....${C_RESET}\n"
+        make -C finality-provider
+        printf "${C_GREEN}Building finality-provider end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building vigilante start....${C_RESET}\n"
+        make -C vigilante
+        printf "${C_GREEN}Building vigilante end....${C_RESET}\n"
+        
+        printf "${C_GREEN}Building all component done.${C_RESET}\n"
+

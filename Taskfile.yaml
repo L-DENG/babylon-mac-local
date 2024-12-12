@@ -1,0 +1,24 @@
+version: '3'
+
+env:
+  CODE_BASE:
+    sh: printf "%s" {{.ROOT_DIR}}
+
+includes:
+  build: ./taskfiles/build.yaml
+
+tasks:
+  test:
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        env | grep -i _proxy
+  default:
+    - task: build-all
+
+  build-all:
+    aliases: [buildAll]
+    desc: build all
+    silent: true
+    cmds:
+      - task: build:buildAll
