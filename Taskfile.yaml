@@ -59,5 +59,4 @@ tasks:
       - |
         export PATH={{.PATH}}
         printf "Start init network config, codebase path: ${CODE_BASE} \n"
-        source ${CODE_BASE}/lib/utils.sh && init_config
-        printf "End init network config, codebase \n"
+        source ${CODE_BASE}/lib/utils.sh && init_config      

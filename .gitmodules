@@ -22,3 +22,9 @@
 [submodule "optimism"]
 	path = optimism
 	url = git@github.com:babylonlabs-io/optimism.git
+[submodule "babylon-sdk"]
+	path = babylon-sdk
+	url = git@github.com:babylonlabs-io/babylon-sdk.git
+[submodule "relayer"]
+	path = relayer
+	url = git@github.com:cosmos/relayer.git
