@@ -34,7 +34,7 @@ babylon:
   keyring-backend: test
   gas-adjustment: 1.5
   gas-prices: 2ubbn
-  key-directory: /Users/guoshijiang/.testnets/vigilante/config
+  key-directory: /Users/guoshijiang/testnets/vigilante/config
   debug: true
   timeout: 20s
   block-timeout: ~
@@ -44,7 +44,7 @@ babylon:
 grpc:
   onetime-tls-key: true
   rpc-key: ""
-  rpc-cert: /Users/guoshijiang/.testnets/vigilante/config/rpc.cert
+  rpc-cert: /Users/guoshijiang/testnets/vigilante/config/rpc.cert
   endpoints:
     - localhost:8084
 grpcweb:
@@ -59,7 +59,7 @@ submitter:
   resend-interval-seconds: 1800
   resubmit-fee-multiplier: 2
   dbconfig:
-    dbpath: /Users/guoshijiang/.testnets/vigilante/submitter/db
+    dbpath: /Users/guoshijiang/testnets/vigilante/submitter/db
     dbfilename: submitter.db
     nofreelistsync: false
     autocompact: true
@@ -80,7 +80,7 @@ monitor:
   enable-slasher: true
   btcnetparams: regtest
   dbconfig:
-    dbpath: /Users/guoshijiang/.testnets/vigilante/monitor/db
+    dbpath: /Users/guoshijiang/testnets/vigilante/monitor/db
     dbfilename: monitor.db
     nofreelistsync: false
     autocompact: true

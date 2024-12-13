@@ -32,30 +32,53 @@ function init_config() {
   --covenant-pks "2d4ccbe538f846a750d82a77cd742895e51afcf23d86d05004a356b783902748"
 
   # 解决两个节点本地端口冲突问题
-  sed -i '' "s#\"@127.0.0.2:26656\"#\"@127.0.0.2:26666\"#g" ${CODE_BASE}/testnets/babylondhome/node0/babylond/config/config.toml
-  sed -i '' "s#\"tcp://0.0.0.0:26657\"#\"tcp://0.0.0.0:26667\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
-  sed -i '' "s#\"tcp://0.0.0.0:26656\"#\"tcp://0.0.0.0:26666\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
-  sed -i '' "s#\"26660\"#\"26670\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
+  sudo sed -i '' "s#\"@127.0.0.2:26656\"#\"@127.0.0.2:26666\"#g" ${CODE_BASE}/testnets/babylondhome/node0/babylond/config/config.toml
+  sudo sed -i '' "s#\"tcp://0.0.0.0:26657\"#\"tcp://0.0.0.0:26667\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
+  sudo sed -i '' "s#\"tcp://0.0.0.0:26656\"#\"tcp://0.0.0.0:26666\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
+  sudo sed -i '' "s#\"26660\"#\"26670\"#g" ${CODE_BASE}/testnets/babylondhome/node1/babylond/config/config.toml
 
   # 创建各个服务的目录
-  sudo mkdir -p ${CODE_BASE}/testnets/bitcoin
-  sudo mkdir -p ${CODE_BASE}/testnets/vigilante
-  sudo mkdir -p ${CODE_BASE}/testnets/btcstaker
-  sudo mkdir -p ${CODE_BASE}/testnets/finality-provider
-  sudo mkdir -p ${CODE_BASE}/testnets/consumerfp
-  sudo mkdir -p ${CODE_BASE}/testnets/eotsmanager
-  sudo mkdir -p ${CODE_BASE}/testnets/consumereotsmanager
-  sudo mkdir -p ${CODE_BASE}/testnets/covenantemulator
+ sudo mkdir -p ${CODE_BASE}/testnets/bitcoin
+ sudo mkdir -p ${CODE_BASE}/testnets/bitcoin
+ sudo mkdir -p ${CODE_BASE}/testnets/vigilante
+ sudo mkdir -p ${CODE_BASE}/testnets/btcstaker
+ sudo mkdir -p ${CODE_BASE}/testnets/finalityprovider
+ sudo mkdir -p ${CODE_BASE}/testnets/consumerfp
+ sudo mkdir -p ${CODE_BASE}/testnets/eotsmanager
+ sudo mkdir -p ${CODE_BASE}/testnets/consumereotsmanager
+ sudo mkdir -p ${CODE_BASE}/testnets/covenantemulator
+
 
   # 拷贝文件到相应的目录
-  cp ${CODE_BASE}/conf/vigilante.yml ${CODE_BASE}/testnets/vigilante/vigilante.yml
-  cp ${CODE_BASE}/conf/stakerd.conf ${CODE_BASE}/testnets/btcstaker/stakerd.conf
-  cp ${CODE_BASE}/conf/fpd.conf ${CODE_BASE}/testnets/finalityprovider/fpd.conf
-  cp ${CODE_BASE}/conf/consumer-fpd.conf ${CODE_BASE}/testnets/consumerfp/fpd.conf
-  cp ${CODE_BASE}/conf/eotsd.conf ${CODE_BASE}/testnets/eotsmanager/eotsd.conf
-  cp ${CODE_BASE}/conf/consumer-eotsd.conf ${CODE_BASE}/testnets/consumereotsmanager/eotsd.conf
-  cp ${CODE_BASE}/conf/covd.conf ${CODE_BASE}/testnets/covenantemulator/covd.conf
-  cp -R ${CODE_BASE}/conf/covenant-keyring ${CODE_BASE}/testnets/covenantemulator/keyring-test
+  # reporter, submitter, monitor 和 bstracker 角色
+  sudo cp ${CODE_BASE}/conf/vigilante.yml ${CODE_BASE}/testnets/vigilante/vigilante.yml
+  sudo cp ${CODE_BASE}/conf/submitter.yml ${CODE_BASE}/testnets/vigilante/submitter.yml
+  sudo  cp ${CODE_BASE}/conf/monitor.yml ${CODE_BASE}/testnets/vigilante/monitor.yml
+  sudo cp ${CODE_BASE}/conf/bstracker.yml ${CODE_BASE}/testnets/vigilante/bstracker.yml
+
+  # bitcoin
+  sudo cp ${CODE_BASE}/conf/bitcoin.conf ${CODE_BASE}/testnets/bitcoin/bitcoin.conf
+
+  # eots
+  sudo cp ${CODE_BASE}/conf/eotsd.conf ${CODE_BASE}/testnets/eotsmanager/eotsd.conf
+  sudo cp ${CODE_BASE}/conf/consumereotsd.conf ${CODE_BASE}/testnets/consumereotsmanager/consumereotsd.conf
+
+  # fp
+  sudo cp ${CODE_BASE}/conf/fpd.conf ${CODE_BASE}/testnets/finalityprovider/fpd.conf
+  sudo cp ${CODE_BASE}/conf/consumerfpd.conf ${CODE_BASE}/testnets/consumerfp/consumerfpd.conf
+
+  # btc staker
+  sudo cp ${CODE_BASE}/conf/stakerd.conf ${CODE_BASE}/testnets/btcstaker/stakerd.conf
+
+  # covd
+  sudo cp ${CODE_BASE}/conf/covd.conf ${CODE_BASE}/testnets/covenantemulator/covd.conf
+  sudo cp -R ${CODE_BASE}/conf/covenant-keyring ${CODE_BASE}/testnets/covenantemulator/keyring-test
+
+  sudo chmod -R 777 ${CODE_BASE}/testnets
+
+  # 修改目录配置
+  find "${CODE_BASE}/testnets" -type f -name "*.yml" -exec sudo sed -i '' "s#\"/Users/guoshijiang\"#\"${CODE_BASE}\"#g" {} +
+  find "${CODE_BASE}/testnets" -type f -name "*.conf" -exec sudo sed -i '' "s#\"/Users/guoshijiang\"#\"${CODE_BASE}\"#g" {} +
 
   echo "end init network config..."
 }
