@@ -1,4 +1,5 @@
 version: "3"
+
 tasks:
   buildAll:
     desc: build babylon, babylon-contract, btc-staker, covenant-emulator, finality-gadget, finality-provider, vigilante, optimism
@@ -32,4 +33,6 @@ tasks:
         printf "${C_GREEN}Building vigilante end....${C_RESET}\n"
         
         printf "${C_GREEN}Building all component done.${C_RESET}\n"
+
+
 

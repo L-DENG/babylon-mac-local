@@ -14,11 +14,50 @@ tasks:
         export PATH={{.PATH}}
         env | grep -i _proxy
   default:
-    - task: build-all
+    - task: buildAll
 
-  build-all:
+  _init:
+    internal: true
+    silent: true
+    cmds:
+      - |
+        mkdir -p local/{etc,data,logs,bin,envs,tmp}
+
+  buildAll:
     aliases: [buildAll]
-    desc: build all
+    desc: build all of babylon component
     silent: true
     cmds:
       - task: build:buildAll
+
+  up-supervisord:
+    aliases: [ start-supervisord ]
+    deps: [ _init ]
+    desc: start supervisord
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        ${CODE_BASE}/lib/utils.sh gen_dot_env_files
+        
+        supervisord -c ${SUPERVISORD_INI} -d
+
+  down-supervisord:
+    aliases: [ stop-supervisord ]
+    desc: stop supervisord
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        supervisord -c ${SUPERVISORD_INI} ctl shutdown
+
+  init-network-conf:
+    aliases: [init-babylon-config]
+    desc: init babylon network config
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        printf "Start init network config, codebase path: ${CODE_BASE} \n"
+        source ${CODE_BASE}/lib/utils.sh && init_config
+        printf "End init network config, codebase \n"
