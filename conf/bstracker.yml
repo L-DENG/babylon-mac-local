@@ -46,7 +46,7 @@ grpc:
   rpc-key: ""
   rpc-cert: /Users/guoshijiang/testnets/vigilante/config/rpc.cert
   endpoints:
-    - localhost:8084
+    - localhost:8083
 grpcweb:
   placeholder: grpcwebconfig
 metrics:

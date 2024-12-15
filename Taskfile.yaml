@@ -16,13 +16,6 @@ tasks:
   default:
     - task: buildAll
 
-  _init:
-    internal: true
-    silent: true
-    cmds:
-      - |
-        mkdir -p local/{etc,data,logs,bin,envs,tmp}
-
   buildAll:
     aliases: [buildAll]
     desc: build all of babylon component
@@ -32,14 +25,12 @@ tasks:
 
   up-supervisord:
     aliases: [ start-supervisord ]
-    deps: [ _init ]
     desc: start supervisord
     silent: true
     cmds:
       - |
+        printf "up supervisor, ini path: ${SUPERVISORD_INI} \n"
         export PATH={{.PATH}}
-        ${CODE_BASE}/lib/utils.sh gen_dot_env_files
-        
         supervisord -c ${SUPERVISORD_INI} -d
 
   down-supervisord:
@@ -60,3 +51,12 @@ tasks:
         export PATH={{.PATH}}
         printf "Start init network config, codebase path: ${CODE_BASE} \n"
         source ${CODE_BASE}/lib/utils.sh && init_config      
+
+  up-babylon-network:
+    aliases: [ start-babylon, up-babylon ]
+    deps: [ up-supervisord ]
+    desc: start babylon
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}

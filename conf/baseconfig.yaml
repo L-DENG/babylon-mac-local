@@ -1,0 +1,63 @@
+params:
+  dataDir: local/data
+  etcDir: local/etc
+  tmpDir: local/tmp
+  logsDir: local/logs
+  envsDir: local/envs
+
+
+endpoints:
+  bitcoin: http://127.0.0.1:18443
+  babylon0: http://127.0.0.1:26657
+  babylon1: http://127.0.0.1:26667
+
+
+services:
+  supervisord:
+    command: supervisord
+    ports: {http: 1000}
+  babylondnode0:
+    command: babylond
+    ports: { rpc: 26657, persistent_peers: 26666,  p2p: 26656 }
+  babylondnode1:
+    command: babylond
+    ports: { rpc: 26667, persistent_peers: 26656,  p2p: 26666 }
+  bitcoindsim:
+    command: bitcoind
+    ports: { rpc: 18443, zmq_sequence_port: 29000, zmq_rawblock_port: 29001, zmq_rawtr_port: 29002}
+  vigilante-reporter:
+    command: vigilante
+    ports: { grpc: 8080,  metrics: 2112 }
+  vigilante-submitter:
+    command: vigilante
+    ports: { grpc: 8081,  metrics: 2113 }
+  vigilante-monitor:
+    command: vigilante
+    ports: { grpc: 8082,  metrics: 2114 }
+  vigilante-bstracker:
+    command: vigilante
+    ports: { grpc: 8083,  metrics: 2115 }
+  btc-staker:
+    command: stakerd
+    ports: { "rpc": 15812 }
+  finality-provider:
+    command: fpd
+    ports: { rpc: 12581, metrics: 4112 }
+  consumer-fp:
+    command: fpd
+    ports: { rpc: 12582, metrics: 4113 }
+  eotsmanager:
+    command: eotsd
+    ports: { rpc: 15813, metrics: 4114 }
+  consumer-eotsmanager:
+    command: eotsd
+    ports: { rpc: 15814, metrics: 4115 }
+  covenant-emulator:
+    command: covd
+    ports: { metrics: 4116 }
+  ibcsim-bcd:
+    command: bcd
+    ports: { rpc: 36657, p2p: 36656, prof: 16060, grpc: 19090 }
+  script_exporter:
+    command: script_exporter
+    ports: { http: 9469 }
