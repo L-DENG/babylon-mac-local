@@ -5,7 +5,15 @@
 
 - 安装依赖的工具最小集合到你系统 brew
 ```
-HOMEBREW_NO_AUTO_UPDATE=1 brew install jq yq sha3sum go-task, supervisor, gvm
+HOMEBREW_NO_AUTO_UPDATE=1 brew install jq yq sha3sum go-task, supervisor, gvm, bitcoin
+
+需要特别注意的点
+supervisord 需要 4.2.5 版本
+bitcoind v28.0.0
+```
+
+- go 版本安装与选择, 建议使用 gvm 管理 go 版本
+```
 gvm install go1.23.3
 gvm use go1.23.3
 ```

@@ -3,6 +3,8 @@ version: '3'
 env:
   CODE_BASE:
     sh: printf "%s" {{.ROOT_DIR}}
+  SUPERVISORD_INI:
+    sh: printf "%s/%s/supervisord/supervisord.ini" {{.ROOT_DIR}} $(yq .params.supvDir ./conf/baseconfig.yaml)
 
 includes:
   build: ./taskfiles/build.yaml
@@ -16,8 +18,8 @@ tasks:
   default:
     - task: buildAll
 
-  buildAll:
-    aliases: [buildAll]
+  build-all:
+    aliases: [build-all]
     desc: build all of babylon component
     silent: true
     cmds:
@@ -29,9 +31,8 @@ tasks:
     silent: true
     cmds:
       - |
-        printf "up supervisor, ini path: ${SUPERVISORD_INI} \n"
-        export PATH={{.PATH}}
-        supervisord -c ${SUPERVISORD_INI} -d
+        printf "up supervisor, ini path: ${SUPERVISORD_INI}, log path: ${SUPERVISORD_LOG} \n"
+        supervisord -n -c ${SUPERVISORD_INI}
 
   down-supervisord:
     aliases: [ stop-supervisord ]
@@ -40,7 +41,7 @@ tasks:
     cmds:
       - |
         export PATH={{.PATH}}
-        supervisord -c ${SUPERVISORD_INI} ctl shutdown
+        supervisorctl -c ${SUPERVISORD_INI} shutdown
 
   init-network-conf:
     aliases: [init-babylon-config]
@@ -60,3 +61,43 @@ tasks:
     cmds:
       - |
         export PATH={{.PATH}}
+        printf "start up babylon network\n"
+
+  init-bitcoin:
+    aliases: [ init-bitcoin]
+    desc: init bitcoin network
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        printf "start init bitcoin nework\n"
+        source ${CODE_BASE}/lib/utils.sh && bitcoin_init
+        printf "end init bitcoin nework\n"
+
+  ps:
+    desc: show services status.
+    silent: true
+    aliases: [status]
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        supervisorctl -c ${SUPERVISORD_INI} status
+
+  clean:
+    desc: stop services and rm config.
+    silent: true
+    aliases: [ clean all data and services ]
+    deps: [ down-supervisord ]
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        rm -rf ${CODE_BASE}/testnets
+
+  rm-all:
+    desc: rm config and data in testnet dir.
+    silent: true
+    aliases: [ clean all data in testnet dir ]
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        rm -rf ${CODE_BASE}/testnets

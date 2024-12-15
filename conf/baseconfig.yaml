@@ -1,9 +1,10 @@
 params:
-  dataDir: local/data
-  etcDir: local/etc
-  tmpDir: local/tmp
-  logsDir: local/logs
-  envsDir: local/envs
+  dataDir: testnets/data
+  etcDir: testnets/etc
+  tmpDir: testnets/tmp
+  logsDir: testnets/logs
+  envsDir: testnets/envs
+  supvDir: conf
 
 
 endpoints:
