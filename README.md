@@ -29,10 +29,14 @@ git clone git@github.com:dapplink-labs/babylon-mac-local.git
 git submodule update --init --recursive
 ```
 
-- 构建项目
-
+- 查看所有命令
 ```
-task buildAll
+task list
+```
+
+- 构建项目
+```
+task build-all
 ```
 
 - 初始化配置
@@ -42,5 +46,25 @@ task init-network-conf
 
 - 启动整个项目
 ```
-task upAll
+task up-babylon-network
+```
+
+- 查看进程状态
+```
+task ps
+```
+
+- 停止项目并清除数据文件
+```
+task clean
+```
+
+- 初始化比特币钱包地址
+```
+task init-bitcoin
+```
+
+- 删除初始化配置
+```
+task rm-all
 ```
