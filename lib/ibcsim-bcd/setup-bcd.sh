@@ -75,17 +75,6 @@ sleep 1
 
 # Set proper defaults and change ports
 echo "Change settings in config.toml and genesis.json files..."
-#sed -i 's#"tcp://127.0.0.1:26657"#"tcp://0.0.0.0:'"$RPCPORT"'"#g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's#"tcp://0.0.0.0:26656"#"tcp://0.0.0.0:'"$P2PPORT"'"#g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's#"localhost:6060"#"localhost:'"$PROFPORT"'"#g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config.toml
-#sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's/max_body_bytes = 1000000/max_body_bytes = 1000000000/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's/minimum-gas-prices = ""/minimum-gas-prices = "0.00001ustake"/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/app.toml
-#sed -i 's/timeout_propose = "3s"/timeout_propose = "1s"/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's/index_all_keys = false/index_all_keys = true/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
-#sed -i 's#"tcp://0.0.0.0:1317"#"tcp://0.0.0.0:1318"#g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/app.toml # ensure port is not conflicted with Babylon
-#sed -i 's/"bond_denom": "stake"/"bond_denom": "'"$DENOM"'"/g' /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/genesis.json
-## sed -i '' 's#index-events = \[\]#index-events = \["message.action","send_packet.packet_src_channel","send_packet.packet_sequence"\]#g' $CHAINDIR/$CHAINID/config/app.toml
 sed -i '' "s#\"tcp://127.0.0.1:26657\"#\"tcp://0.0.0.0:$RPCPORT\"#g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
 sed -i '' "s#\"tcp://0.0.0.0:26656\"#\"tcp://0.0.0.0:$P2PPORT\"#g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
 sed -i '' "s#\"localhost:6060\"#\"localhost:$PROFPORT\"#g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
@@ -96,13 +85,6 @@ sed -i '' "s/timeout_propose = \"3s\"/timeout_propose = \"1s\"/g" /Users/guoshij
 sed -i '' "s/index_all_keys = false/index_all_keys = true/g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/config.toml
 sed -i '' "s#\"tcp://0.0.0.0:1317\"#\"tcp://0.0.0.0:1318\"#g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/app.toml # ensure port is not conflicted with Babylon
 sed -i '' "s/\"bond_denom\": \"stake\"/\"bond_denom\": \"$DENOM\"/g" /Users/guoshijiang/.testnets/ibcsimbcd/bcddata/bcd-test/config/genesis.json
-
-## Script for getting contract addresses
-## TODO(euphrates): pass a gov prop on setting the Babylon / BTC staking contract addresses
-# babylonContractAddr=$(bcd query wasm list-contract-by-code 1 -o json | jq -r '.contracts[0]')
-# btcStakingContractAddr=$(bcd query wasm list-contract-by-code 2 -o json | jq -r '.contracts[0]')
-# echo "babylonContractAddr is $babylonContractAddr"
-# echo "btcStakingContractAddr is $btcStakingContractAddr"
 
 # update contract address in genesis
 babylonContractAddr=bbnc14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9syx25zf

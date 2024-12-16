@@ -74,6 +74,39 @@ tasks:
         source ${CODE_BASE}/lib/utils.sh && bitcoin_init
         printf "end init bitcoin nework\n"
 
+  deploy_babylon_contract:
+    aliases: [ deploy-babylon-contract ]
+    desc: deploy babylon contract
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        printf "deploy babylon contract\n"
+        source ${CODE_BASE}/lib/utils.sh && deploy_babylon_contract
+        printf "end deploy babylon contract\n" 
+
+  init-relayer:
+    aliases: [ init-relayer]
+    desc: init cosmos relayer
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        printf "start init relayer\n"
+        source ${CODE_BASE}/lib/utils.sh && init_relayer
+        printf "end init relayer\n"   
+
+  start-relayer:
+    aliases: [ start-relayer ]
+    desc: start cosmos relayer
+    silent: true
+    cmds:
+      - |
+        export PATH={{.PATH}}
+        printf "start relayer\n"
+        source ${CODE_BASE}/lib/utils.sh && start_relayer
+        printf "end start relayer\n"   
+
   ps:
     desc: show services status.
     silent: true

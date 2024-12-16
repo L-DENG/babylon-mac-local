@@ -68,3 +68,18 @@ task init-bitcoin
 ```
 task rm-all
 ```
+
+### 3.relayer 启动流程
+
+- 整个网络初始化完成之后，先执行部署 babylon 合约
+```
+task deploy_babylon_contract
+```
+
+- 之后再去执行 rly 相关的命令
+```
+task init-relayer
+```
+
+
+
